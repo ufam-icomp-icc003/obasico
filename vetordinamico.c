@@ -25,15 +25,14 @@ TVDinamico* criarVD(){
 
 void inserir(TVDinamico *vd, void *dado, int pos){
 
-  struct dados *d = vd->dados;
+  TDadosVD *d = vd->dados;
 
   d->ocupacao++;
   if (pos > d->tam){
-    d->vetor = realloc(d->vetor, sizeof(void*)*(pos) );
+    d->tam = pow(2,ceil(log(pos)));
+    d->vetor = realloc(d->vetor, sizeof(void*)*(d->tam) );
   }
-
   d->vetor[pos-1] = dado;
-
 
 };
 
