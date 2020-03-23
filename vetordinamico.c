@@ -17,6 +17,7 @@ TVDinamico* criarVD(){
   d->tam = 1;
   d->ocupacao = 0;
   d->vetor = malloc(sizeof(void*)*d->tam);
+  //memset()
 
   TVDinamico *vd = malloc(sizeof(TVDinamico));
   vd->dados = d;
@@ -28,11 +29,14 @@ void inserir(TVDinamico *vd, void *dado, int pos){
 
   TDadosVD *d = vd->dados;
 
-  d->ocupacao++;
   if (pos > d->tam){
     d->tam = pow(2,ceil(log(pos)));
     d->vetor = realloc(d->vetor, sizeof(void*)*(d->tam) );
+    //memset()
   }
+  if (d->vetor[pos-1]==NULL)
+    d->ocupacao++;
+
   d->vetor[pos-1] = dado;
 
 };
@@ -42,15 +46,17 @@ void *remover(TVDinamico *vd, int pos){
 
   void *carga = NULL;
   // verifica validade da posição
-  if (abs(pos) <= d->tam){
-
+  if (abs(pos) <= d->tam){ //[-tam,tam]
    //  1, 2, 3, 4, 5 <== acesso pos
    // [0, 1, 2, 3, 4]
    // -5,-4,-3,-2,-1 <== acesso -pos
       pos = (pos<0?d->tam+(pos+1):pos);
-
       carga = d->vetor[pos-1];
-      d->vetor[pos-1] = NULL;
+
+      if (carga != NULL){
+        d->vetor[pos-1] = NULL;
+        d->ocupacao--;
+      }
   }
   return carga;
 };
