@@ -1,4 +1,8 @@
-
+typedef struct pilha{
+  void *dados;
+}TPilha;
 TPilha *criar_pilha();
-empilhar(TPilha *p);
-void *desempinhar(TPilha *p);
+void empilhar(TPilha *p, void *elem);
+void *desempilhar(TPilha *p);
+short vazia_pilha(TPilha *p);
+void *topo_pilha(TPilha *p);
