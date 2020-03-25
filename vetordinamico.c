@@ -61,6 +61,19 @@ void *remover(TVDinamico *vd, int pos){
   return carga;
 };
 
+void *acessar(TVDinamico *vd, int pos){
+  TDadosVD *d = vd->dados;
+
+  void *carga = NULL;
+  // verifica validade da posição
+  if (abs(pos) <= d->tam) && (abs(pos)>0){ //[-tam,tam]
+      pos = (pos<0?d->tam+(pos+1):pos);
+      carga = d->vetor[pos-1];
+  }
+  return carga;
+};
+
+
 // static void trocar(void* vetor[], int i, int j){
 //     void *temp = NULL;
 //     temp = vetor[i];

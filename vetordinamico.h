@@ -11,4 +11,5 @@ typedef struct VDinamico{
 TVDinamico* criarVD();
 void inserir(TVDinamico *vd, void *carga_util, int pos);
 void *remover(TVDinamico *vd, int pos);
+void *acessar(TVDinamico *vd, int pos);
 void ordenar();

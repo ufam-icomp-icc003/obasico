@@ -20,12 +20,13 @@ TPilha *criar_pilha(){
 
 void empilhar(TPilha *pilha, void *elem){
   TDadosPilha *d = pilha->dados;
+
   d->altura++;
+
   inserir(d->vd, elem, d->altura);
 }
 
 void *desempilhar(TPilha *pilha){
-
   void *elem = NULL;
   TDadosPilha *d = pilha->dados;
   if(d->altura>0){
@@ -37,8 +38,10 @@ void *desempilhar(TPilha *pilha){
 
 //*acessar elemento do topo da pilha sem removê-lo
 void *topo_pilha(TPilha *pilha){
-  void *elem = NULL;
   // falta completar o código
+  TDadosPilha *d = pilha->dados;
+
+  void *elem = acessar(d->vd,d->altura);
 
   return elem;
 }
@@ -47,5 +50,5 @@ void *topo_pilha(TPilha *pilha){
 short vazia_pilha(TPilha *pilha){
   TDadosPilha *d = pilha->dados;
 
-  return (d->altura==0);
+  return (d->altura==0); // 1 - verdade 0 -- falso
 }

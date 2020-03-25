@@ -19,6 +19,7 @@ TFila *criar_fila(){
     TDadosFila *d = malloc(sizeof(TDadosFila));
     d->tamanho = 0;
     d->status = VAZIO_FILA; // vazio
+
     d->ultima = 0; // ocupada
     d->primeira = 1; //  ocupada
 
