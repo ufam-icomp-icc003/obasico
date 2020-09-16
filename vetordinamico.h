@@ -1,15 +1,16 @@
-/**
-Cabecalho do Vetor dinâmico.
+/** definição da estrutura de dados
 */
-
-typedef struct VDinamico{
+struct vdinamico{
   void *dados;
-} TVDinamico;
+};
+typedef struct vdinamico TVDinamico;
 
+typedef int (*TCompararVD)(void* elemA, void* elemB);
 
-
-TVDinamico* criarVD();
-void inserir(TVDinamico *vd, void *carga_util, int pos);
-void *remover(TVDinamico *vd, int pos);
-void *acessar(TVDinamico *vd, int pos);
-void ordenar();
+TVDinamico *criarVD();
+void inserirVD(TVDinamico *vd, void* carga, int pos);
+void* removerVD(TVDinamico *vd, int pos);
+void* acessarVD(TVDinamico *vd, int pos);
+void ordenarVD(TVDinamico *vd, TCompararVD comparar);
+int mensurarVD(TVDinamico *vd);
+int ocuparVD(TVDinamico *vd);

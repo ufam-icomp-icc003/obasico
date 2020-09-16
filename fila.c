@@ -1,63 +1,60 @@
+/**
+implementa uma fila usando VDinamico
+*/
 #include "stdio.h"
 #include "stdlib.h"
-#include "vetordinamico.h"
+#include "vdinamico.h"
 #include "fila.h"
 
-#define VAZIO_FILA 1
-#define NAO_VAZIO_FILA 2
-
 typedef struct dadosFila{
-  int tamanho; // tamanho == 0 => vazia
-  int status; // vazia ou nao?
-  int ultima;
-  int primeira;
-  TVDinamico *vd; // instancia do Vetor dinamico
-} TDadosFila;
+  TVDinamico *vd; //
+  int cabeca;
+  int final;
+}TDadosFila;
 
-TFila *criar_fila(){
-
-    TDadosFila *d = malloc(sizeof(TDadosFila));
-    d->tamanho = 0;
-    d->status = VAZIO_FILA; // vazio
-
-    d->ultima = 0; // ocupada
-    d->primeira = 1; //  ocupada
-
-    d->vd = criarVD();
-
-    TFila *f = malloc(sizeof(TFila));
-    f->dados = d;
-
-    return f; // retorno da instancia
+static void enfileirar(TFila *fila, void *carga){
+    TDadosFila *df = fila->dados;
+    df->final++;
+    inserirVD(df->vd, carga, df->final);
 }
 
-void enfileirar(TFila *f, void *elem){
-    TDadosFila *d = f->dados;
+static void *desenfileirar(TFila *fila){
+  TDadosFila *df = fila->dados;
+  int ocupacao = ocuparVD(df->vd);
+  void *carga = NULL;
 
-    // ultima posicao ocupada
-    // primeira posicao ocupada
-
-    d->ultima++;
-    d->tamanho++;
-    d->status = NAO_VAZIO_FILA;
-    inserir(d->vd,elem,d->ultima);
-}
-
-void *desenfileirar(TFila *f){
-    void *elem = NULL;
-    TDadosFila *d = f->dados;
-
-    if (d->status == NAO_VAZIO_FILA){ // nao vazio
-      elem = remover(d->vd,d->primeira);
-      d->primeira++;
-      d->tamanho--;
-
-      if (d->tamanho==0){
-        d->primeira=1;
-        d->ultima=0;
-        d->status = VAZIO_FILA;
-      }
+  if (ocupacao > 0){
+    carga = removerVD(df->vd,df->cabeca);
+    df->cabeca++;
+    if (df->cabeca > df->final){
+      df->cabeca=1;
+      df->final=0;
     }
+  }
 
-    return elem;
+  return carga;
+}
+
+static int mensurar(TFila *fila){
+  TDadosFila *df = fila->dados;
+  int ocupacao = ocuparVD(df->vd);
+
+  return ocupacao;
+}
+
+TFila *criarFila(){
+    TDadosFila *df = malloc(sizeof(TDadosFila));
+
+    df->vd = criarVD();
+    df->cabeca = 1;
+    df->final = 0;
+
+    TFila *fila = malloc(sizeof(TFila));
+
+    fila->dados = df;
+    fila->enfileirar = enfileirar;
+    fila->mensurar = mensurar;
+    fila->desenfileirar = desenfileirar;
+
+    return fila;
 }

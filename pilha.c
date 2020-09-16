@@ -1,54 +1,52 @@
+/**
+implementação do tipo Pilha usando VDinamico
+A pilha é neutra, portanto pode receber qualquer
+tipo de dado
+*/
+#include "stdio.h"
 #include "stdlib.h"
-#include "vetordinamico.h"
+#include "vdinamico.h"
 #include "pilha.h"
 
 typedef struct dadosPilha{
-    int altura;
-    TVDinamico *vd;
-}TDadosPilha;
 
-TPilha *criar_pilha(){
-    TDadosPilha *d = malloc(sizeof(TDadosPilha));
-    d->altura = 0;
-    d->vd = criarVD();
+  TVDinamico *vd;
 
-    TPilha *p = malloc(sizeof(TPilha));
-    p->dados = d;
+} TDadosPilha;
 
-    return p;
+TPilha *criarPilha(){
+
+  TVDinamico *vd = criarVD();
+
+  TDadosPilha *dp = malloc(sizeof(TDadosPilha));
+  dp->vd = vd;
+
+  TPilha *pilha = malloc(sizeof(TPilha));
+
+  pilha->dados = dp;
+
+  return pilha;
 }
 
-void empilhar(TPilha *pilha, void *elem){
-  TDadosPilha *d = pilha->dados;
-
-  d->altura++;
-
-  inserir(d->vd, elem, d->altura);
+void empilhar(TPilha *pilha, void *carga){
+  TDadosPilha *dp = pilha->dados;
+  int ocupacao = ocuparVD(dp->vd);
+  inserirVD(dp->vd, carga, ocupacao+1);
 }
 
-void *desempilhar(TPilha *pilha){
-  void *elem = NULL;
-  TDadosPilha *d = pilha->dados;
-  if(d->altura>0){
-    elem = remover(d->vd, d->altura);
-    d->altura--;
+void* desempilhar(TPilha *pilha){
+  TDadosPilha *dp = pilha->dados;
+  int ocupacao = ocuparVD(dp->vd);
+  void *carga = NULL;
+  if (ocupacao > 0){
+    carga = removerVD(dp->vd, ocupacao);
   }
-  return elem;
+
+  return carga;
 }
 
-//*acessar elemento do topo da pilha sem removê-lo
-void *topo_pilha(TPilha *pilha){
-  // falta completar o código
-  TDadosPilha *d = pilha->dados;
+int mensurarPilha(TPilha *pilha){
+    TDadosPilha *dp = pilha->dados;
 
-  void *elem = acessar(d->vd,d->altura);
-
-  return elem;
-}
-
-//* verifica se a pilha é vazia ou não
-short vazia_pilha(TPilha *pilha){
-  TDadosPilha *d = pilha->dados;
-
-  return (d->altura==0); // 1 - verdade 0 -- falso
+    return ocuparVD(dp->vd);
 }

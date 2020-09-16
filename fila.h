@@ -1,12 +1,14 @@
-//FIFO Primeiro que Chega é atendido
-//Prioridade --> Heap
+/**
+Definição da fila com politica FIFO
+*/
 
-typedef struct fila{
+typedef struct fila TFila;
+struct fila{
   void *dados;
-}TFila;
+};
 
-TFila *criar_fila();
-void enfileirar(TFila *f, void *elem);
-void *desenfileirar(TFila *f);
-short vazia(TFila *f);
-void *cabeca(TFila *f);
+
+TFila *criarFila();
+void enfileirar(TFila *fila, void *carga);
+void *desenfileirar(TFila *fila);
+int mensurarFila(TFila *fila);
