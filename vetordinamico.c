@@ -5,7 +5,7 @@ exponencial.
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
-#include "vdinamico.h"
+#include "vetordinamico.h"
 
 struct dadosVD{
   int tam;
@@ -82,6 +82,10 @@ static void trocar(void* vetor[], int i, int j){
     vetor[j] = temp;
 }
 
+void trocarVD(TVDinamico *vd, int posA, int posB){
+  TDadosVD *d = vd->dados;
+  trocar(d->vetor, posA, posB);
+}
 
 void ordenarVD(TVDinamico *vd, TCompararVD comparar){
   TDadosVD *d = vd->dados;

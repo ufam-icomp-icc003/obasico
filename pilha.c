@@ -5,7 +5,7 @@ tipo de dado
 */
 #include "stdio.h"
 #include "stdlib.h"
-#include "vdinamico.h"
+#include "vetordinamico.h"
 #include "pilha.h"
 
 typedef struct dadosPilha{

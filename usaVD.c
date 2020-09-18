@@ -1,9 +1,39 @@
-#include "vdinamico.h"
+#include "vetordinamico.h"
 #include "pilha.h"
 #include "fila.h"
+#include "filaprioridade.h"
 
 #include "stdio.h"
 #include "stdlib.h"
+
+typedef struct aviao{
+  int nroTurbina;
+  double nivelCombustivel;
+  int prioridade;
+} TAviao;
+
+void *criarInstanciaAviao(int nroTurbina, double nivelCombustivel, int prioridade){
+
+  TAviao *carga = malloc(sizeof(TAviao));
+  carga->nroTurbina = nroTurbina;
+  carga->nivelCombustivel = nivelCombustivel;
+  carga->prioridade = prioridade;
+
+  return carga;
+}
+
+int compararInstanciasAviao(void *elemA, void *elemB){
+    TAviao *pelemA = elemA;
+    TAviao *pelemB = elemB;
+    if (pelemA->prioridade == pelemB->prioridade){
+      return 0;
+    }else if(pelemA->prioridade > pelemB->prioridade) {
+      return 1;
+    }else{
+      return -1;
+    }
+}
+
 
 void *criarInstanciaTipo(int valor){
 
@@ -109,11 +139,43 @@ void usarfila(){
 
 }
 
+void usarfilaprioridade(){
+  TFilaPrioridade *fp = criarFP(4);
+
+  inserirFP(fp, criarInstanciaAviao(4,0.5,5));
+  inserirFP(fp, criarInstanciaAviao(4,0.3,2));
+  inserirFP(fp, criarInstanciaAviao(8,0.1,3));
+  inserirFP(fp, criarInstanciaAviao(6,0.9,1));
+
+  TAviao *pmenor = encontrarMenorFP(fp, compararInstanciasAviao);
+
+  if (pmenor!=NULL){
+    printf("turbinas: %d\n", pmenor->nroTurbina);
+    printf("nivelCombustivel: %lf\n", pmenor->nivelCombustivel);
+  }
+
+  pmenor = removerMenorFP(fp, compararInstanciasAviao);
+  if (pmenor!=NULL){
+    printf("turbinas: %d\n", pmenor->nroTurbina);
+    printf("nivelCombustivel: %lf\n", pmenor->nivelCombustivel);
+  }
+
+  pmenor = encontrarMenorFP(fp, compararInstanciasAviao);
+  if (pmenor!=NULL){
+    printf("turbinas: %d\n", pmenor->nroTurbina);
+    printf("nivelCombustivel: %lf\n", pmenor->nivelCombustivel);
+  }
+
+
+}
+
+
 int main(int argc, char const *argv[]) {
 
-  usarpilha();
+  // usarpilha();
   // usarfila();
   // usarvdinamico();
 
+  usarfilaprioridade();
   return 0;
 }

@@ -3,7 +3,7 @@ implementa uma fila usando VDinamico
 */
 #include "stdio.h"
 #include "stdlib.h"
-#include "vdinamico.h"
+#include "vetordinamico.h"
 #include "fila.h"
 
 typedef struct dadosFila{
@@ -12,13 +12,13 @@ typedef struct dadosFila{
   int final;
 }TDadosFila;
 
-static void enfileirar(TFila *fila, void *carga){
+void enfileirar(TFila *fila, void *carga){
     TDadosFila *df = fila->dados;
     df->final++;
     inserirVD(df->vd, carga, df->final);
 }
 
-static void *desenfileirar(TFila *fila){
+void *desenfileirar(TFila *fila){
   TDadosFila *df = fila->dados;
   int ocupacao = ocuparVD(df->vd);
   void *carga = NULL;
@@ -35,7 +35,7 @@ static void *desenfileirar(TFila *fila){
   return carga;
 }
 
-static int mensurar(TFila *fila){
+int mensurarFila(TFila *fila){
   TDadosFila *df = fila->dados;
   int ocupacao = ocuparVD(df->vd);
 
@@ -52,9 +52,6 @@ TFila *criarFila(){
     TFila *fila = malloc(sizeof(TFila));
 
     fila->dados = df;
-    fila->enfileirar = enfileirar;
-    fila->mensurar = mensurar;
-    fila->desenfileirar = desenfileirar;
 
     return fila;
 }
