@@ -1,10 +1,11 @@
+#include "stdio.h"
+#include "stdlib.h"
+#include "stdbool.h"
 #include "vetordinamico.h"
 #include "pilha.h"
 #include "fila.h"
 #include "filaprioridade.h"
 
-#include "stdio.h"
-#include "stdlib.h"
 
 typedef struct aviao{
   int nroTurbina;
@@ -158,7 +159,7 @@ void usarfilaprioridade(){
   if (pmenor!=NULL){
     printf("turbinas: %d\n", pmenor->nroTurbina);
     printf("nivelCombustivel: %lf\n", pmenor->nivelCombustivel);
-  }
+  };
 
   pmenor = encontrarMenorFP(fp, compararInstanciasAviao);
   if (pmenor!=NULL){

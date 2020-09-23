@@ -3,6 +3,7 @@ implementa uma fila usando VDinamico
 */
 #include "stdio.h"
 #include "stdlib.h"
+#include "stdbool.h"
 #include "vetordinamico.h"
 #include "fila.h"
 
@@ -45,7 +46,7 @@ int mensurarFila(TFila *fila){
 TFila *criarFila(){
     TDadosFila *df = malloc(sizeof(TDadosFila));
 
-    df->vd = criarVD();
+    df->vd = criarVD(.tamanho=5);
     df->cabeca = 1;
     df->final = 0;
 

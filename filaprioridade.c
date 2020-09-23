@@ -9,6 +9,7 @@ Estrutura base: Vetor Não Ordenado
 */
 #include "stdio.h"
 #include "stdlib.h"
+#include "stdbool.h"
 #include "filaprioridade.h"
 #include "vetordinamico.h"
 
