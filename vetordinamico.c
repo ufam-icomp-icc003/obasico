@@ -4,22 +4,24 @@ exponencial.
 */
 #include "stdio.h"
 #include "stdlib.h"
+#include "stdbool.h"
 #include "math.h"
 #include "vetordinamico.h"
 
-struct dadosVD{
+typedef struct dadosVD{
+  bool fixa;
   int tam;
   int ocupacao;
   void* *vetor;
-};
-typedef struct dadosVD TDadosVD;
+} TDadosVD;
 
-TVDinamico *criarVD(){
+TVDinamico *criarVD_base(TPars_VD pars){
   TVDinamico *vd = malloc(sizeof(TVDinamico));
 
   TDadosVD *d = malloc(sizeof(TDadosVD));
 
-  d->tam = 1;
+  d->fixa = pars.fixa;
+  d->tam = pars.tamanho;
   d->ocupacao = 0;
   d->vetor = malloc(sizeof(void*)*d->tam);
 
@@ -43,17 +45,41 @@ void* acessarVD(TVDinamico *vd, int pos){
   return carga;
 }
 
-void inserirVD(TVDinamico *vd, void* carga, int pos){
+int inserirVD(TVDinamico *vd, void* carga, int pos){
   TDadosVD *d = vd->dados;
   if (pos > d->tam){
-      d->tam = pow(2,ceil(log2(pos)));
-      d->vetor = realloc(d->vetor,sizeof(void*)*(d->tam));
+     if (d->fixa==false){
+        d->tam = pow(2,ceil(log2(pos)));
+        d->vetor = realloc(d->vetor,sizeof(void*)*(d->tam));
+        d->vetor[pos-1] = carga;
+        d->ocupacao++;
+      }else{
+        return 0; // nok operacao nao foi realizada
+      }
+  }else{
+      d->vetor[pos-1] = carga;
+      d->ocupacao++;
   }
+  return 1; // ok operacao realizada
 
-  d->vetor[pos-1] = carga;
-
-  d->ocupacao++;
 }
+
+/** atualiza uma posição do vetor dinâmico
+sobre escrevendo o conteúdo
+0 - não efetiva a operação | fora do escopo do vetor
+1 - operação efetivada
+*/
+int atualizarVD(TVDinamico *vd, void* carga, int pos){
+  TDadosVD *d = vd->dados;
+  if (pos > d->tam){
+    return 0; // fora do escopo do vetor
+  }
+  // potencial para memory-leaky (perde endereço do
+  // conteúdo anterior)
+  d->vetor[pos-1] = carga;
+  return 1; // feito
+}
+
 
 void *removerVD(TVDinamico *vd, int pos){
   TDadosVD *d = vd->dados;
