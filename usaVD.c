@@ -5,7 +5,7 @@
 #include "pilha.h"
 #include "fila.h"
 #include "filaprioridade.h"
-
+#include "listasc.h"
 
 typedef struct aviao{
   int nroTurbina;
@@ -35,6 +35,14 @@ int compararInstanciasAviao(void *elemA, void *elemB){
     }
 }
 
+void imprimirTipoAviao(TAviao *a){
+  if (a!=NULL){
+    printf("Prior: %d\n", a->prioridade);
+    printf("turbinas: %d\n", a->nroTurbina);
+    printf("nivelCombustivel: %lf\n", a->nivelCombustivel);
+  }
+
+}
 
 void *criarInstanciaTipo(int valor){
 
@@ -170,6 +178,34 @@ void usarfilaprioridade(){
 
 }
 
+void usarlistasc(){
+  TListaSC *lsc = criarLSC(.tamMax=6);
+
+  inserirInicioLSC(lsc, criarInstanciaAviao(4,0.5,5));
+  inserirInicioLSC(lsc, criarInstanciaAviao(4,0.3,2));
+  inserirInicioLSC(lsc, criarInstanciaAviao(8,0.1,3));
+  inserirInicioLSC(lsc, criarInstanciaAviao(6,0.9,1));
+
+  TAviao *a = acessarLSC(lsc,1);
+  imprimirTipoAviao(a);
+  a = acessarLSC(lsc,mensurarLSC(lsc));
+  imprimirTipoAviao(a);
+  a = removerFinalLSC(lsc);
+  imprimirTipoAviao(a);
+  a = removerLSC(lsc);
+  imprimirTipoAviao(a);
+
+  inserirInicioLSC(lsc, criarInstanciaAviao(4,0.5,5));
+  inserirInicioLSC(lsc, criarInstanciaAviao(4,0.3,2));
+  inserirInicioLSC(lsc, criarInstanciaAviao(8,0.1,3));
+  inserirInicioLSC(lsc, criarInstanciaAviao(6,0.9,1));
+  a = acessarLSC(lsc,mensurarLSC(lsc));
+  imprimirTipoAviao(a);
+  inserirInicioLSC(lsc, criarInstanciaAviao(8,0.1,3));
+  a = acessarLSC(lsc,mensurarLSC(lsc));
+  imprimirTipoAviao(a);
+
+}
 
 int main(int argc, char const *argv[]) {
 
@@ -177,6 +213,7 @@ int main(int argc, char const *argv[]) {
   // usarfila();
   // usarvdinamico();
 
-  usarfilaprioridade();
+  // usarfilaprioridade();
+  usarlistasc();
   return 0;
 }
