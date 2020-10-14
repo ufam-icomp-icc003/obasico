@@ -5,7 +5,7 @@
 #include "pilha.h"
 #include "fila.h"
 #include "filaprioridade.h"
-#include "listasc.h"
+#include "listase.h"
 
 typedef struct aviao{
   int nroTurbina;
@@ -179,30 +179,30 @@ void usarfilaprioridade(){
 }
 
 void usarlistasc(){
-  TListaSC *lsc = criarLSC(.tamMax=6);
+  TListaSE *lse = criarLSE(.tamMax=6);
 
-  inserirInicioLSC(lsc, criarInstanciaAviao(4,0.5,5));
-  inserirInicioLSC(lsc, criarInstanciaAviao(4,0.3,2));
-  inserirInicioLSC(lsc, criarInstanciaAviao(8,0.1,3));
-  inserirInicioLSC(lsc, criarInstanciaAviao(6,0.9,1));
+  inserirInicioLSE(lse, criarInstanciaAviao(4,0.5,5));
+  inserirInicioLSE(lse, criarInstanciaAviao(4,0.3,2));
+  inserirInicioLSE(lse, criarInstanciaAviao(8,0.1,3));
+  inserirInicioLSE(lse, criarInstanciaAviao(6,0.9,1));
 
-  TAviao *a = acessarLSC(lsc,1);
+  TAviao *a = acessarLSE(lse,1);
   imprimirTipoAviao(a);
-  a = acessarLSC(lsc,mensurarLSC(lsc));
+  a = acessarLSE(lse,mensurarLSE(lse));
   imprimirTipoAviao(a);
-  a = removerFinalLSC(lsc);
+  a = removerFinalLSE(lse);
   imprimirTipoAviao(a);
-  a = removerLSC(lsc);
+  a = removerInicioLSE(lse);
   imprimirTipoAviao(a);
 
-  inserirInicioLSC(lsc, criarInstanciaAviao(4,0.5,5));
-  inserirInicioLSC(lsc, criarInstanciaAviao(4,0.3,2));
-  inserirInicioLSC(lsc, criarInstanciaAviao(8,0.1,3));
-  inserirInicioLSC(lsc, criarInstanciaAviao(6,0.9,1));
-  a = acessarLSC(lsc,mensurarLSC(lsc));
+  inserirInicioLSE(lse, criarInstanciaAviao(4,0.5,5));
+  inserirInicioLSE(lse, criarInstanciaAviao(4,0.3,2));
+  inserirInicioLSE(lse, criarInstanciaAviao(8,0.1,3));
+  inserirInicioLSE(lse, criarInstanciaAviao(6,0.9,1));
+  a = acessarLSE(lse,mensurarLSE(lse));
   imprimirTipoAviao(a);
-  inserirInicioLSC(lsc, criarInstanciaAviao(8,0.1,3));
-  a = acessarLSC(lsc,mensurarLSC(lsc));
+  inserirInicioLSE(lse, criarInstanciaAviao(8,0.1,3));
+  a = acessarLSE(lse,mensurarLSE(lse));
   imprimirTipoAviao(a);
 
 }
