@@ -5,9 +5,9 @@ projeto contendo implementações de estruturas de dados neutralizadas.
 + Fila
 + Pilha
 + Fila de Prioridade
-+ Heap (em aberto)
++ Heap
 
 ## ED neutralizadas
 + Vetor Dinâmico
-+ Vetor Circular (em aberto)
++ Vetor Circular
 + Lista Encadeada

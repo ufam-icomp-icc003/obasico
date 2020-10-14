@@ -6,6 +6,7 @@
 #include "fila.h"
 #include "filaprioridade.h"
 #include "listase.h"
+#include "heap.h"
 
 typedef struct aviao{
   int nroTurbina;
@@ -26,13 +27,8 @@ void *criarInstanciaAviao(int nroTurbina, double nivelCombustivel, int prioridad
 int compararInstanciasAviao(void *elemA, void *elemB){
     TAviao *pelemA = elemA;
     TAviao *pelemB = elemB;
-    if (pelemA->prioridade == pelemB->prioridade){
-      return 0;
-    }else if(pelemA->prioridade > pelemB->prioridade) {
-      return 1;
-    }else{
-      return -1;
-    }
+
+    return (pelemA->prioridade - pelemB->prioridade);
 }
 
 void imprimirTipoAviao(TAviao *a){
@@ -55,13 +51,7 @@ void *criarInstanciaTipo(int valor){
 int compararInstanciasTipo(void *elemA, void *elemB){
     int *pelemA = elemA;
     int *pelemB = elemB;
-    if (*pelemA == *pelemB){
-      return 0;
-    }else if(*pelemA > *pelemB) {
-      return 1;
-    }else{
-      return -1;
-    }
+    return (*pelemA - *pelemB);
 }
 
 void usarvdinamico(){
@@ -157,23 +147,13 @@ void usarfilaprioridade(){
   inserirFP(fp, criarInstanciaAviao(6,0.9,1));
 
   TAviao *pmenor = encontrarMenorFP(fp, compararInstanciasAviao);
-
-  if (pmenor!=NULL){
-    printf("turbinas: %d\n", pmenor->nroTurbina);
-    printf("nivelCombustivel: %lf\n", pmenor->nivelCombustivel);
-  }
+  imprimirTipoAviao(pmenor);
 
   pmenor = removerMenorFP(fp, compararInstanciasAviao);
-  if (pmenor!=NULL){
-    printf("turbinas: %d\n", pmenor->nroTurbina);
-    printf("nivelCombustivel: %lf\n", pmenor->nivelCombustivel);
-  };
+  imprimirTipoAviao(pmenor);
 
   pmenor = encontrarMenorFP(fp, compararInstanciasAviao);
-  if (pmenor!=NULL){
-    printf("turbinas: %d\n", pmenor->nroTurbina);
-    printf("nivelCombustivel: %lf\n", pmenor->nivelCombustivel);
-  }
+  imprimirTipoAviao(pmenor);
 
 
 }
@@ -207,6 +187,36 @@ void usarlistasc(){
 
 }
 
+void usarHeap(){
+  THeap *heap = criarHeap(.comparar=compararInstanciasAviao);
+
+  inserirHeap(heap, criarInstanciaAviao(4,0.5,5));
+  inserirHeap(heap, criarInstanciaAviao(4,0.3,2));
+  inserirHeap(heap, criarInstanciaAviao(8,0.1,3));
+  inserirHeap(heap, criarInstanciaAviao(6,0.9,1));
+  inserirHeap(heap, criarInstanciaAviao(10,0.1,7));
+
+
+  TAviao *a = removerHeap(heap);
+  imprimirTipoAviao(a);
+
+  // a = acessarHeap(heap);
+  // imprimirTipoAviao(a);
+
+  a = removerHeap(heap);
+  imprimirTipoAviao(a);
+
+  a = removerHeap(heap);
+  imprimirTipoAviao(a);
+
+  a = removerHeap(heap);
+  imprimirTipoAviao(a);
+
+  a = removerHeap(heap);
+  imprimirTipoAviao(a);
+
+}
+
 int main(int argc, char const *argv[]) {
 
   // usarpilha();
@@ -214,6 +224,7 @@ int main(int argc, char const *argv[]) {
   // usarvdinamico();
 
   // usarfilaprioridade();
-  usarlistasc();
+  //usarlistasc();
+  usarHeap();
   return 0;
 }
