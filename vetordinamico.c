@@ -9,7 +9,6 @@ exponencial.
 #include "vetordinamico.h"
 
 typedef struct dadosVD{
-  bool fixa;
   int tam;
   int ocupacao;
   void* *vetor;
@@ -20,7 +19,6 @@ TVDinamico *criarVD_base(TPars_VD pars){
 
   TDadosVD *d = malloc(sizeof(TDadosVD));
 
-  d->fixa = pars.fixa;
   d->tam = pars.tamanho;
   d->ocupacao = 0;
   d->vetor = malloc(sizeof(void*)*d->tam);
@@ -45,23 +43,14 @@ void* acessarVD(TVDinamico *vd, int pos){
   return carga;
 }
 
-int inserirVD(TVDinamico *vd, void* carga, int pos){
+void inserirVD(TVDinamico *vd, void* carga, int pos){
   TDadosVD *d = vd->dados;
   if (pos > d->tam){
-     if (d->fixa==false){
-        d->tam = pow(2,ceil(log2(pos)));
-        d->vetor = realloc(d->vetor,sizeof(void*)*(d->tam));
-        d->vetor[pos-1] = carga;
-        d->ocupacao++;
-      }else{
-        return 0; // nok operacao nao foi realizada
-      }
-  }else{
-      d->vetor[pos-1] = carga;
-      d->ocupacao++;
+      d->tam = pow(2,ceil(log2(pos)));
+      d->vetor = realloc(d->vetor,sizeof(void*)*(d->tam));
   }
-  return 1; // ok operacao realizada
-
+  d->vetor[pos-1] = carga;
+  d->ocupacao++;
 }
 
 /** atualiza uma posição do vetor dinâmico
