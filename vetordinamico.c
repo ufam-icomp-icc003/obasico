@@ -98,8 +98,13 @@ static void trocar(void* vetor[], int i, int j){
 }
 
 void trocarVD(TVDinamico *vd, int posA, int posB){
+
   TDadosVD *d = vd->dados;
-  trocar(d->vetor, posA, posB);
+
+  posA = (posA<0?d->tam+(posA+1):posA);
+  posB = (posB<0?d->tam+(posB+1):posB);
+
+  trocar(d->vetor, posA-1, posB-1);
 }
 
 void ordenarVD(TVDinamico *vd, TCompararVD comparar){
