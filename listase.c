@@ -78,6 +78,11 @@ int mensurarLSE(TListaSE *lse){
   return d->tam;
 }
 
+int vaziaLSE(TListaSE *lse){
+  TDadosLSE *d = lse->dados;
+  return (d->tam==0);
+}
+
 //inserir inicio
 int inserirInicioLSE(TListaSE *lse, void *carga){
   TDadosLSE *d = lse->dados;
@@ -95,6 +100,44 @@ int inserirInicioLSE(TListaSE *lse, void *carga){
   }else{
     e->prox = d->prim;
     d->prim = e;
+  }
+
+  d->tam++;
+
+  return 1;
+}
+
+//inserir inicio
+int inserirOrdenadoLSE(TListaSE *lse, void *carga, TCompararLSE compararLSE){
+  TDadosLSE *d = lse->dados;
+
+  if (d->tam == d->tamMax)
+    return 0;
+
+  TElemLSE *e = malloc(sizeof(TElemLSE));
+  e->prox = NULL;
+  e->carga = carga;
+
+  if (d->prim == NULL){
+    d->prim = e;
+    d->ult = e;
+  }else{
+    TElemLSE *ant = NULL;
+    TElemLSE *cam = d->prim;
+    while( (cam!=NULL) && (compararLSE(carga,cam->carga)>=0) ){
+      ant = cam;
+      cam = cam->prox;
+    }
+    if (cam==d->prim){
+      e->prox = d->prim;
+      d->prim = e;
+    }else if (cam == NULL){
+      d->ult->prox = e;
+      d->ult = e;
+    }else{
+      ant->prox = e;
+      e->prox = cam;
+    }
   }
 
   d->tam++;
@@ -144,4 +187,14 @@ void *acessarLSE(TListaSE *lse, int pos){
     carga = cam->carga;
   }
   return carga;
+}
+
+void destruirLSE(TListaSE *lse){
+  TDadosLSE *d = lse->dados;
+  if (d->prim!=NULL){
+    printf("Lista Não Vazia");
+  }else{
+    free(d);
+    free(lse);
+  }
 }
