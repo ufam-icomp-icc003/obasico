@@ -1,3 +1,4 @@
+#include "stdlib.h"
 #include "inteiro.h"
 
 void *criarInstanciaInt(int valor){

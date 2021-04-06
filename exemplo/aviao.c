@@ -1,4 +1,7 @@
+#include "stdio.h"
+#include "stdlib.h"
 #include "aviao.h"
+
 struct aviao{
   int nroTurbina;
   double nivelCombustivel;
