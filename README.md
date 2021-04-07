@@ -1,13 +1,13 @@
 # Estrutura de dados II - ICC003
-projeto contendo implementações de estruturas de dados neutralizadas.
+Implementações de estruturas de dados neutralizadas utilizando conceito de encapsulamento de dados. A implementação usa ponteiros neutros _void_ e ponteiros para funções _callbacks_, garantido assim que a qualquer tipo seja armazenado na estrutura.
 
-## TADs implementados
-+ Fila
-+ Pilha
-+ Fila de Prioridade
-+ Heap
+#### TADs implementados
+  + Fila
+  + Pilha
+  + Fila de Prioridade
+  + Heap
 
-## ED neutralizadas
+#### ED neutralizadas
 + Vetor Dinâmico
 + Vetor Circular
 + Lista Encadeada
@@ -28,7 +28,13 @@ projeto contendo implementações de estruturas de dados neutralizadas.
 
 + Windows
   + TO BE DONE
-  
+
+## Desinstalando a _libtad_
+    + na linha de comando
+    ```
+    make uninstall
+    ```
+
 ## Caso de uso
 Se você chegou até aqui é porque a instalação foi bem sucedida. O diretório _exemplos_ tem código que faz uso da biblioteca.
 

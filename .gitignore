@@ -15,8 +15,8 @@ configure
 configure.ac
 configure.scan
 Makefile.am
-tad-1.0.tar.gz
-tad-1.0.zip
+tad*zip
+tad*gz
 src/.deps
 src/Makefile
 src/Makefile.in
