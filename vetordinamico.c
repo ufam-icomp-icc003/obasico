@@ -30,7 +30,7 @@ void inserir(TVDinamico *vd, void *dado, int pos){
   TDadosVD *d = vd->dados;
 
   if (pos > d->tam){
-    d->tam = pow(2,ceil(log(pos)));
+    d->tam = pow(2,ceil(log2(pos)));
     d->vetor = realloc(d->vetor, sizeof(void*)*(d->tam) );
     //memset()
   }
@@ -73,25 +73,32 @@ void *acessar(TVDinamico *vd, int pos){
   return carga;
 };
 
+void *deslocar(TVDinamico *vd, int passo){ //shift
+  // deslocar fisico
 
-// static void trocar(void* vetor[], int i, int j){
-//     void *temp = NULL;
-//     temp = vetor[i];
-//     vetor[i] = vetor[j];
-//     vetor[j] = temp;
-// }
-//
-// typedef  int (* TCompararVDinamico)(void*,void*);
-// void ordenar(TVDinamico *vd, TCompararVDinamico comparar){
-//   TDadosVD *d = vd->dados;
-//   for (int i = 0; i < d->tam-1; i++) {
-//     int imaior = 0;
-//     for(int j=1;j<d->tam-i;j++){
-//       if(comparar(d->vetor[imaior],d->vetor[j]) < 0){
-//         imaior = j;
-//       }
-//     }
-//     trocar(d->vetor, imaior,d->tam-i-1);
-//   }
-//
-// };
+  // [x3,x2,x1,NULL,NULL] n*k, k>>n: letreiro
+
+  // [x4,x3,x2,x1,NULL]
+
+}
+
+static void trocar(void* vetor[], int i, int j){
+    void *temp = NULL;
+    temp = vetor[i];
+    vetor[i] = vetor[j];
+    vetor[j] = temp;
+}
+
+void ordenar(TVDinamico *vd, TCompararVDinamico comparar){
+  TDadosVD *d = vd->dados;
+  for (int i = 0; i < d->tam-1; i++) {
+    int imaior = 0;
+    for(int j=1;j<d->tam-i;j++){
+      if(comparar(d->vetor[imaior],d->vetor[j]) < 0){
+        imaior = j;
+      }
+    }
+    trocar(d->vetor, imaior,d->tam-i-1);
+  }
+
+};

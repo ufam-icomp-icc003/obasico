@@ -1,6 +1,7 @@
 /**
 Cabecalho do Vetor dinâmico.
 */
+typedef int (* TCompararVDinamico)(void*,void*);
 
 typedef struct VDinamico{
   void *dados;

@@ -48,7 +48,7 @@ void *desenfileirar(TFila *f){
     TDadosFila *d = f->dados;
 
     if (d->status == NAO_VAZIO_FILA){ // nao vazio
-      elem = remover(d->vd,d->primeira);
+      elem = deslocar(d->vd);
       d->primeira++;
       d->tamanho--;
 

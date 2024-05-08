@@ -1,3 +1,7 @@
+/**
+uso do vetor dinâmico.
+*/
+
 #include "stdio.h"
 #include "vetordinamico.h"
 
@@ -9,7 +13,7 @@ int main(int argc, char const *argv[]) {
 
   inserir(meuVD, carga, 1);
 
-  
+
 
 
   return 0;
